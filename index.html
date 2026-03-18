@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAIBHAV SINGH // PORTFOLIO OS v3.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#020408;--bg2:#040810;
+  --panel:rgba(0,255,200,0.03);--pb:rgba(0,255,200,0.12);
+  --cyan:#00ffc8;--cdim:rgba(0,255,200,0.4);
+  --orange:#ff6b35;--og:rgba(255,107,53,0.3);
+  --text:#c8fff4;--tdim:rgba(200,255,244,0.55);--tmut:rgba(200,255,244,0.25);
+  --grid:rgba(0,255,200,0.035);--scan:rgba(0,255,200,0.012);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;min-height:100vh;overflow-x:hidden;cursor:crosshair;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,var(--scan) 3px,var(--scan) 4px);pointer-events:none;z-index:1;}
+
+/* CURSOR */
+#cdot{position:fixed;width:8px;height:8px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);box-shadow:0 0 10px var(--cyan);}
+#cring{position:fixed;width:32px;height:32px;border:1px solid var(--cdim);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:900;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:62px;background:rgba(2,4,8,0.95);border-bottom:1px solid var(--pb);backdrop-filter:blur(20px);}
+nav::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);animation:npulse 4s ease-in-out infinite;}
+@keyframes npulse{0%,100%{opacity:.3}50%{opacity:1}}
+.nlogo{font-family:'Orbitron',monospace;font-size:.9rem;font-weight:900;color:var(--cyan);letter-spacing:.15em;text-shadow:0 0 20px var(--cyan);display:flex;align-items:center;gap:.75rem;}
+.ntag{font-size:.5rem;color:var(--tmut);letter-spacing:.2em;font-family:'Share Tech Mono',monospace;border:1px solid var(--pb);padding:.2rem .5rem;}
+.nlinks{display:flex;list-style:none;}
+.nlinks a{color:var(--tmut);text-decoration:none;font-size:.65rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;font-family:'Share Tech Mono',monospace;padding:0 1.2rem;height:62px;display:flex;align-items:center;border-right:1px solid var(--pb);transition:color .2s;position:relative;}
+.nlinks a::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--cyan);transform:scaleX(0);transition:transform .2s;}
+.nlinks a:hover{color:var(--cyan);}
+.nlinks a:hover::after{transform:scaleX(1);}
+.nright{display:flex;align-items:center;gap:.75rem;}
+.nstatus{display:flex;align-items:center;gap:.5rem;font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--tmut);}
+.sdot{width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:blink 1.5s step-end infinite;box-shadow:0 0 8px var(--cyan);}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+#adminBadge{display:none;align-items:center;gap:.4rem;font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--orange);border:1px solid var(--og);padding:.2rem .6rem;}
+#adminBadge.on{display:flex;}
+#adminLogoutBtn{background:none;border:none;color:var(--orange);cursor:pointer;font-family:'Share Tech Mono',monospace;font-size:.58rem;margin-left:.3rem;opacity:.7;}
+#adminLogoutBtn:hover{opacity:1;}
+#adminLoginBtn{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;background:transparent;border:1px solid var(--og);color:var(--orange);font-family:'Orbitron',monospace;font-size:.58rem;font-weight:700;letter-spacing:.12em;cursor:pointer;transition:all .2s;}
+#adminLoginBtn:hover{background:rgba(255,107,53,.08);box-shadow:0 0 15px var(--og);}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:6rem 3rem 3rem;position:relative;z-index:2;}
+.hwrap{width:100%;max-width:1400px;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;}
+.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;}
+.o1{width:500px;height:500px;background:radial-gradient(circle,rgba(0,255,200,.08),transparent 70%);top:10%;right:5%;animation:float 8s ease-in-out infinite;}
+.o2{width:300px;height:300px;background:radial-gradient(circle,rgba(0,136,255,.1),transparent 70%);bottom:20%;left:10%;animation:float 6s ease-in-out infinite reverse;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-30px)}}
+.slbl{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--cyan);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.75rem;}
+.slbl::before{content:'//';color:var(--tmut);}
+.slbl::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--cdim),transparent);max-width:100px;}
+h1{font-family:'Orbitron',monospace;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;line-height:1;letter-spacing:.05em;margin-bottom:.5rem;}
+.l1{color:var(--text);display:block;}
+.l2{color:var(--cyan);display:block;text-shadow:0 0 30px var(--cyan);}
+.hrole{font-family:'Share Tech Mono',monospace;font-size:.72rem;color:var(--orange);letter-spacing:.12em;margin-bottom:2rem;}
+.hdesc{font-size:1rem;color:var(--tdim);line-height:1.8;max-width:480px;margin-bottom:3rem;}
+.hctas{display:flex;gap:1rem;flex-wrap:wrap;}
+
+/* BUTTONS */
+.btnc{position:relative;display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 2rem;background:transparent;border:1px solid var(--cyan);color:var(--cyan);font-family:'Orbitron',monospace;font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .3s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));overflow:hidden;}
+.btnc::before{content:'';position:absolute;inset:0;background:var(--cyan);transform:scaleX(0);transform-origin:left;transition:transform .3s;z-index:-1;}
+.btnc:hover{color:var(--bg);}
+.btnc:hover::before{transform:scaleX(1);}
+.btng{position:relative;display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 2rem;background:transparent;border:1px solid var(--pb);color:var(--tdim);font-family:'Orbitron',monospace;font-size:.65rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:all .3s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.btng:hover{border-color:var(--tdim);color:var(--text);}
+.btnsm{background:var(--bg);border:1px solid var(--pb);color:var(--tmut);font-family:'Share Tech Mono',monospace;font-size:.56rem;padding:.28rem .55rem;cursor:pointer;transition:all .15s;display:inline-flex;align-items:center;gap:.2rem;text-decoration:none;}
+.btnsm:hover{border-color:var(--cdim);color:var(--cyan);}
+.btnsm.del:hover{border-color:rgba(255,107,53,.4);color:var(--orange);}
+
+/* STAT PANEL */
+.hpanel{background:var(--panel);border:1px solid var(--pb);position:relative;overflow:hidden;}
+.hpanel::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,255,200,.03),transparent 60%);pointer-events:none;}
+.phead{padding:1rem 1.5rem;border-bottom:1px solid var(--pb);display:flex;align-items:center;justify-content:space-between;font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--tmut);}
+.ptitle{color:var(--cyan);letter-spacing:.18em;}
+.pdots{display:flex;gap:.4rem;}
+.pdot{width:6px;height:6px;border-radius:50%;}
+.dc{background:var(--cyan);box-shadow:0 0 6px var(--cyan);}
+.do{background:var(--orange);box-shadow:0 0 6px var(--orange);}
+.dm{background:var(--tmut);}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--pb);}
+.scell{background:var(--bg2);padding:1.5rem 1rem;text-align:center;transition:background .2s;}
+.scell:hover{background:rgba(0,255,200,.04);}
+.snum{font-family:'Orbitron',monospace;font-size:1.8rem;font-weight:900;color:var(--cyan);line-height:1;margin-bottom:.4rem;text-shadow:0 0 20px rgba(0,255,200,.5);}
+.slb{font-family:'Share Tech Mono',monospace;font-size:.52rem;color:var(--tmut);letter-spacing:.1em;text-transform:uppercase;line-height:1.4;}
+.dstream{padding:1rem 1.5rem;border-top:1px solid var(--pb);}
+.dline{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--tmut);line-height:2.2;}
+.dline span{color:var(--cyan);}
+
+/* SECTIONS */
+.sw{max-width:1300px;margin:0 auto;padding:6rem 3rem;position:relative;z-index:2;}
+.sh{margin-bottom:3.5rem;}
+.si{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--tmut);letter-spacing:.3em;margin-bottom:.5rem;display:flex;align-items:center;gap:1rem;}
+.si::after{content:'';height:1px;width:80px;background:linear-gradient(90deg,var(--pb),transparent);}
+h2{font-family:'Orbitron',monospace;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:800;letter-spacing:.05em;}
+.acc{color:var(--cyan);}
+.sdiv{height:1px;background:linear-gradient(90deg,var(--cdim),transparent);margin-top:1.5rem;position:relative;}
+.sdiv::before{content:'';position:absolute;left:0;top:-2px;width:6px;height:5px;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
+
+/* ABOUT */
+.ag{display:grid;grid-template-columns:1.3fr 1fr;gap:3rem;align-items:start;}
+.atext p{color:var(--tdim);line-height:1.9;margin-bottom:1.2rem;font-size:.98rem;}
+.spls{display:flex;flex-direction:column;gap:.7rem;}
+.spl{background:var(--panel);border:1px solid var(--pb);padding:1rem 1.25rem;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);transition:all .25s;}
+.spl:hover{border-color:var(--cdim);background:rgba(0,255,200,.04);}
+.splbl{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--cyan);letter-spacing:.2em;margin-bottom:.7rem;text-transform:uppercase;}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;}
+.chip{background:rgba(0,255,200,.05);border:1px solid rgba(0,255,200,.13);color:var(--tdim);font-family:'Share Tech Mono',monospace;font-size:.62rem;padding:.22rem .6rem;transition:all .15s;}
+.chip:hover{border-color:var(--cdim);color:var(--cyan);}
+
+/* TIMELINE */
+.tl{position:relative;padding-left:3rem;}
+.tl::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,var(--cyan),transparent);}
+.ti{position:relative;margin-bottom:2.5rem;background:var(--panel);border:1px solid var(--pb);padding:2rem;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:all .3s;}
+.ti:hover{border-color:var(--cdim);transform:translateX(6px);}
+.ti::before{content:'';position:absolute;left:-3.4rem;top:1.8rem;width:10px;height:10px;background:var(--cyan);border:2px solid var(--bg);box-shadow:0 0 14px var(--cyan);}
+.ti:not(:first-child)::before{background:var(--tmut);box-shadow:none;}
+.tt{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem;}
+.tco{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--orange);letter-spacing:.15em;margin-bottom:.3rem;}
+.tro{font-family:'Orbitron',monospace;font-size:.85rem;font-weight:700;color:var(--text);letter-spacing:.04em;}
+.tdt{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--tmut);background:var(--bg);border:1px solid var(--pb);padding:.3rem .7rem;white-space:nowrap;}
+.tbul{list-style:none;margin-top:.5rem;}
+.tbul li{color:var(--tdim);font-size:.9rem;line-height:1.7;padding-left:1.5rem;position:relative;margin-bottom:.4rem;}
+.tbul li::before{content:'▶';position:absolute;left:0;color:var(--cyan);font-size:.45rem;top:.45rem;}
+.ttags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.25rem;}
+.ttag{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--cyan);border:1px solid rgba(0,255,200,.18);padding:.2rem .55rem;background:rgba(0,255,200,.04);}
+
+/* VAULT */
+#vsec{background:rgba(0,136,255,.018);border-top:1px solid rgba(0,136,255,.1);border-bottom:1px solid rgba(0,136,255,.1);position:relative;z-index:2;}
+.vbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:2.5rem;flex-wrap:wrap;gap:1rem;}
+.loader{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4rem;gap:1rem;}
+.spin{width:40px;height:40px;border:2px solid var(--pb);border-top-color:var(--cyan);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ltxt{font-family:'Share Tech Mono',monospace;font-size:.65rem;color:var(--tmut);letter-spacing:.15em;}
+.egrid{text-align:center;padding:4rem;color:var(--tmut);font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.1em;}
+
+/* FOLDERS */
+.fgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.5rem;}
+.fcard{background:var(--panel);border:1px solid var(--pb);cursor:pointer;transition:all .3s;position:relative;overflow:hidden;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);}
+.fcard:hover{border-color:var(--cdim);box-shadow:0 0 40px rgba(0,255,200,.1);transform:translateY(-4px);}
+.ftop{padding:1.25rem 1.25rem .75rem;display:flex;align-items:flex-start;justify-content:space-between;}
+.fico{font-size:1.75rem;}
+.fbtns{display:flex;gap:.4rem;opacity:0;transition:opacity .2s;}
+.fcard:hover .fbtns{opacity:1;}
+.ibtn{background:var(--bg);border:1px solid var(--pb);color:var(--tmut);width:26px;height:26px;font-size:.68rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.ibtn:hover{border-color:var(--cdim);color:var(--cyan);}
+.ibtn.del:hover{border-color:rgba(255,107,53,.5);color:var(--orange);}
+.fnm{font-family:'Orbitron',monospace;font-size:.78rem;font-weight:700;padding:0 1.25rem;color:var(--text);letter-spacing:.04em;margin-bottom:.25rem;}
+.fcnt{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--tmut);padding:0 1.25rem 1rem;letter-spacing:.1em;}
+.fprev{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--pb);margin:0 1.25rem 1.25rem;min-height:68px;overflow:hidden;}
+.fempty{grid-column:1/-1;display:flex;align-items:center;justify-content:center;color:var(--tmut);font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.1em;padding:1.2rem;}
+.addcard{background:transparent;border:1px dashed rgba(0,255,200,.15);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;min-height:220px;transition:all .3s;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,0 100%);}
+.addcard:hover{border-color:var(--cdim);background:rgba(0,255,200,.03);}
+.addico{font-size:2rem;color:rgba(0,255,200,.3);}
+.addlbl{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--tmut);letter-spacing:.15em;text-transform:uppercase;}
+
+/* BREADCRUMB */
+.bc{display:flex;align-items:center;gap:.75rem;font-family:'Share Tech Mono',monospace;font-size:.68rem;}
+.bcl{color:var(--cyan);cursor:pointer;letter-spacing:.1em;}
+.bcl:hover{text-decoration:underline;}
+.bcs{color:var(--tmut);}
+.bcc{color:var(--tdim);}
+
+/* FILES */
+.filegrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.25rem;}
+.filecard{background:var(--panel);border:1px solid var(--pb);transition:all .3s;clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,0 100%);position:relative;overflow:hidden;}
+.filecard:hover{border-color:var(--cdim);transform:translateY(-4px);box-shadow:0 0 30px rgba(0,255,200,.1);}
+.fthumb{width:100%;height:130px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:2.5rem;position:relative;overflow:hidden;cursor:pointer;}
+.fthumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.fbadge{position:absolute;top:.5rem;right:.5rem;background:rgba(2,4,8,.9);border:1px solid var(--cdim);color:var(--cyan);font-family:'Share Tech Mono',monospace;font-size:.52rem;letter-spacing:.12em;padding:.18rem .45rem;text-transform:uppercase;}
+.finfo{padding:.9rem 1rem .5rem;}
+.fname{font-family:'Orbitron',monospace;font-size:.68rem;font-weight:600;color:var(--text);letter-spacing:.04em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:.2rem;}
+.fdate{font-family:'Share Tech Mono',monospace;font-size:.56rem;color:var(--tmut);}
+.factions{display:flex;gap:.4rem;padding:.5rem 1rem .9rem;}
+
+/* PROGRESS */
+.progwrap{margin-top:.75rem;background:var(--bg);border:1px solid var(--pb);height:4px;overflow:hidden;display:none;}
+.progbar{height:100%;background:var(--cyan);width:0%;transition:width .3s;box-shadow:0 0 8px var(--cyan);}
+.progtxt{font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--cyan);margin-top:.4rem;display:none;}
+
+/* ACHIEVEMENTS */
+.achgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.5rem;}
+.achcard{background:var(--panel);border:1px solid var(--pb);padding:1.75rem;clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:all .3s;position:relative;overflow:hidden;}
+.achcard::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.5;}
+.achcard:hover{border-color:var(--cdim);transform:translateY(-4px);}
+.aico{font-size:2rem;margin-bottom:1rem;}
+.atit{font-family:'Orbitron',monospace;font-size:.72rem;font-weight:700;color:var(--text);letter-spacing:.04em;margin-bottom:.6rem;}
+.adesc{font-size:.85rem;color:var(--tdim);line-height:1.65;}
+
+/* CONTACT */
+#csec{background:rgba(0,255,200,.012);border-top:1px solid var(--pb);position:relative;z-index:2;}
+.ci{max-width:800px;margin:0 auto;text-align:center;}
+.ci p{color:var(--tdim);line-height:1.8;margin:1rem 0 2.5rem;}
+.clinks{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;}
+.clink{display:flex;align-items:center;gap:.6rem;background:var(--panel);border:1px solid var(--pb);color:var(--tdim);padding:.9rem 1.75rem;text-decoration:none;font-family:'Share Tech Mono',monospace;font-size:.65rem;letter-spacing:.1em;transition:all .3s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));}
+.clink:hover{border-color:var(--cdim);color:var(--cyan);background:rgba(0,255,200,.04);}
+
+/* MODALS */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(14px);z-index:2000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity .2s;}
+.overlay.show{opacity:1;pointer-events:all;}
+.modal{background:var(--bg2);border:1px solid var(--pb);width:100%;max-width:520px;clip-path:polygon(0 0,calc(100% - 20px) 0,100% 20px,100% 100%,20px 100%,0 calc(100% - 20px));padding:2.5rem;position:relative;transform:translateY(20px);transition:transform .3s;}
+.modal::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);}
+.overlay.show .modal{transform:translateY(0);}
+.modal h3{font-family:'Orbitron',monospace;font-size:.95rem;font-weight:800;color:var(--cyan);letter-spacing:.1em;margin-bottom:2rem;text-shadow:0 0 20px rgba(0,255,200,.4);}
+.modal.orange h3{color:var(--orange);text-shadow:0 0 20px var(--og);}
+.modal.orange::before{background:linear-gradient(90deg,transparent,var(--orange),transparent);}
+.mclose{position:absolute;top:1.5rem;right:1.5rem;background:var(--bg);border:1px solid var(--pb);color:var(--tmut);width:28px;height:28px;cursor:pointer;font-size:.75rem;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.mclose:hover{border-color:var(--orange);color:var(--orange);}
+.fg{margin-bottom:1.25rem;}
+.fl{display:block;font-family:'Share Tech Mono',monospace;font-size:.58rem;letter-spacing:.2em;color:var(--tmut);text-transform:uppercase;margin-bottom:.5rem;}
+.fi{width:100%;background:var(--bg);border:1px solid var(--pb);color:var(--text);padding:.72rem 1rem;font-family:'Share Tech Mono',monospace;font-size:.78rem;outline:none;transition:border-color .2s;}
+.fi:focus{border-color:var(--cdim);}
+.fi.orange:focus{border-color:rgba(255,107,53,.5);}
+.epick{display:flex;flex-wrap:wrap;gap:.4rem;}
+.eopt{width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;background:var(--bg);border:1px solid var(--pb);cursor:pointer;transition:all .15s;}
+.eopt:hover,.eopt.sel{border-color:var(--cdim);background:rgba(0,255,200,.06);}
+.upzone{border:1px dashed rgba(0,255,200,.2);padding:2rem;text-align:center;cursor:pointer;position:relative;transition:all .2s;}
+.upzone:hover{border-color:var(--cdim);background:rgba(0,255,200,.03);}
+.upzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.upico{font-size:1.75rem;margin-bottom:.5rem;}
+.uptxt{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--tmut);letter-spacing:.1em;}
+.uptyp{font-size:.55rem;color:var(--tmut);margin-top:.3rem;font-family:'Share Tech Mono',monospace;opacity:.6;}
+.thumbzone{border:1px dashed rgba(0,255,200,.15);padding:1.5rem;text-align:center;cursor:pointer;position:relative;min-height:90px;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:all .2s;}
+.thumbzone:hover{border-color:var(--cdim);}
+.thumbzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.thumbzone img{max-height:110px;width:100%;object-fit:cover;}
+.fsel{font-family:'Share Tech Mono',monospace;font-size:.6rem;color:var(--cyan);margin-top:.5rem;letter-spacing:.06em;}
+.mbtns{display:flex;gap:.75rem;justify-content:flex-end;margin-top:2rem;}
+.pwerr{font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--orange);margin-top:.5rem;display:none;}
+@keyframes shake{0%,100%{transform:translateY(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+.shake{animation:shake .4s ease;}
+
+/* VIEWER */
+.viewer{position:fixed;inset:0;background:rgba(2,4,8,.97);z-index:3000;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .2s;}
+.viewer.show{opacity:1;pointer-events:all;}
+.vhead{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;background:rgba(4,8,16,.9);border-bottom:1px solid var(--pb);flex-shrink:0;}
+.vtitle{font-family:'Orbitron',monospace;font-size:.75rem;color:var(--cyan);letter-spacing:.08em;}
+.vacts{display:flex;gap:.75rem;}
+.vbody{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem;overflow:hidden;}
+.vbody iframe{width:90vw;height:85vh;border:none;}
+.vbody img{max-width:90vw;max-height:85vh;border:1px solid var(--pb);}
+.vclose{font-size:.62rem;padding:.5rem 1rem;background:transparent;border:1px solid var(--orange);color:var(--orange);font-family:'Orbitron',monospace;font-weight:700;letter-spacing:.12em;cursor:pointer;}
+
+/* TOAST */
+#toast{position:fixed;bottom:2rem;right:2rem;background:var(--bg2);border:1px solid var(--pb);color:var(--text);padding:1rem 1.5rem;font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.08em;z-index:5000;transform:translateY(100px);opacity:0;transition:all .3s;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,0 100%);max-width:340px;}
+#toast.show{transform:translateY(0);opacity:1;}
+#toast.ok{border-color:rgba(0,255,200,.4);}
+#toast.err{border-color:rgba(255,107,53,.4);}
+#toast.warn{border-color:rgba(255,200,0,.4);}
+
+footer{position:relative;z-index:2;text-align:center;padding:2rem;border-top:1px solid var(--pb);font-family:'Share Tech Mono',monospace;font-size:.58rem;color:var(--tmut);letter-spacing:.15em;}
+::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:rgba(0,255,200,.2);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.a{animation:fadeUp .7s ease forwards;}.d1{animation-delay:.1s;opacity:0;}.d2{animation-delay:.22s;opacity:0;}.d3{animation-delay:.36s;opacity:0;}.d4{animation-delay:.5s;opacity:0;}.d5{animation-delay:.65s;opacity:0;}
+
+@media(max-width:1000px){.hwrap,.ag{grid-template-columns:1fr;} nav{padding:0 1.5rem;}}
+@media(max-width:640px){.nlinks{display:none;} .sw{padding:4rem 1.5rem;} h1{font-size:2rem;}}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cdot"></div>
+<div id="cring"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nlogo">VS <span class="ntag">PORTFOLIO_OS v3.0</span></div>
+  <ul class="nlinks">
+    <li><a href="#hero">INIT</a></li>
+    <li><a href="#about">ABOUT</a></li>
+    <li><a href="#exp">EXP</a></li>
+    <li><a href="#vsec">VAULT</a></li>
+    <li><a href="#ach">AWARDS</a></li>
+    <li><a href="#csec">CONTACT</a></li>
+  </ul>
+  <div class="nright">
+    <div id="adminBadge">🔓 ADMIN <button id="adminLogoutBtn" onclick="VS.logout()">LOGOUT</button></div>
+    <button id="adminLoginBtn" onclick="VS.showPwModal()">🔐 ADMIN LOGIN</button>
+    <div class="nstatus"><div class="sdot"></div>SYSTEM ONLINE</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div class="hwrap">
+    <div>
+      <div class="slbl a d1">IDENTITY MODULE // ACTIVE</div>
+      <h1 class="a d2"><span class="l1">VAIBHAV</span><span class="l2">SINGH</span></h1>
+      <div class="hrole a d3">SCM_EXEC · PRODUCT_MANAGER · DIGITAL_TRANSFORMER</div>
+      <p class="hdesc a d4">Senior Executive in Supply Chain & Operations. Top PM Fellow at NextLeap. Bridging ERP integration, Agile execution, and data-driven strategy.</p>
+      <div class="hctas a d5">
+        <a href="#vsec" class="btnc">📁 ACCESS VAULT</a>
+        <a href="#csec" class="btng">INITIATE CONTACT →</a>
+      </div>
+    </div>
+    <div class="a d4">
+      <div class="hpanel">
+        <div class="phead"><span class="ptitle">// PERFORMANCE_METRICS.DAT</span><div class="pdots"><div class="pdot dc"></div><div class="pdot do"></div><div class="pdot dm"></div></div></div>
+        <div class="sgrid">
+          <div class="scell"><div class="snum">1.5+</div><div class="slb">YRS AT<br>STAR CEMENT</div></div>
+          <div class="scell"><div class="snum">55%</div><div class="slb">OPS<br>EFFICIENCY</div></div>
+          <div class="scell"><div class="snum">40%</div><div class="slb">TEAM<br>PRODUCTIVITY</div></div>
+          <div class="scell"><div class="snum">₹35L</div><div class="slb">REVENUE<br>GENERATED</div></div>
+          <div class="scell"><div class="snum">15%</div><div class="slb">OET<br>REDUCTION</div></div>
+          <div class="scell"><div class="snum">TOP</div><div class="slb">NEXTLEAP<br>PM FELLOW</div></div>
+        </div>
+        <div class="dstream">
+          <div class="dline">› SUPABASE CONNECTED... <span>LIVE</span></div>
+          <div class="dline">› VAULT SYNCED TO CLOUD... <span>ACTIVE</span></div>
+          <div class="dline">› STATUS: <span>OPEN TO OPPORTUNITIES</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<div class="sw" id="about">
+  <div class="sh"><div class="si">01 // MODULE_ABOUT</div><h2>WHO <span class="acc">I AM</span></h2><div class="sdiv"></div></div>
+  <div class="ag">
+    <div class="atext">
+      <p>Supply Chain & Product professional with a proven track record in digital transformation, ERP integration, and product ownership. PGDM from Management Development Institute Murshidabad.</p>
+      <p>At Star Cement, I've led end-to-end digital logistics projects integrating SAP ERP, plant automation (IVL), and mParivahan — delivering measurable gains in dispatch efficiency, order execution time, and vendor management.</p>
+      <p>As a Top PM Fellow at NextLeap, I bring product thinking into every operational challenge — sprint planning, roadmap ownership, stakeholder management, and data-backed decisions through Power BI and SQL.</p>
+      <p>Great products and great operations share the same DNA: clear goals, tight feedback loops, and relentless iteration on what matters most.</p>
+    </div>
+    <div class="spls">
+      <div class="spl"><div class="splbl">// TOOLS & TECH</div><div class="chips"><span class="chip">SAP ERP</span><span class="chip">Power BI</span><span class="chip">Tableau</span><span class="chip">SQL</span><span class="chip">Figma</span><span class="chip">Whimsical</span><span class="chip">Excel</span></div></div>
+      <div class="spl"><div class="splbl">// PRODUCT & OPS</div><div class="chips"><span class="chip">Agile/Scrum</span><span class="chip">Product Roadmap</span><span class="chip">Sprint Planning</span><span class="chip">Supply Chain</span><span class="chip">ERP Integration</span><span class="chip">Process Optimization</span></div></div>
+      <div class="spl"><div class="splbl">// SOFT SKILLS</div><div class="chips"><span class="chip">Stakeholder Mgmt</span><span class="chip">Cross-func Collab</span><span class="chip">Business Analysis</span><span class="chip">Negotiation</span><span class="chip">Leadership</span></div></div>
+      <div class="spl"><div class="splbl">// CERTIFICATIONS</div><div class="chips"><span class="chip">PM Fellowship–NextLeap</span><span class="chip">Google PM</span><span class="chip">Six Sigma Green Belt</span><span class="chip">Power BI & Tableau</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="sw" id="exp">
+  <div class="sh"><div class="si">02 // EXPERIENCE_LOG</div><h2>CAREER <span class="acc">JOURNEY</span></h2><div class="sdiv"></div></div>
+  <div class="tl">
+    <div class="ti"><div class="tt"><div><div class="tco">STAR CEMENT PVT. LTD. · GUWAHATI</div><div class="tro">SENIOR EXECUTIVE — SCM & OPERATIONS</div></div><div class="tdt">AUG 2024 — PRESENT</div></div><ul class="tbul"><li>Executed digital logistics project integrating SAP ERP, IVL & mParivahan — achieving <strong>55% operational efficiency</strong>.</li><li>Led Agile sprint planning and reviews — improving team productivity by <strong>40%</strong>.</li><li>Designed Power BI dashboard to analyze e-bidding portal data and identify savings trends.</li><li>Achieved <strong>15% reduction</strong> in Order Execution Time through data-driven dispatch planning.</li><li>Integrated IVL with Star Sathi dealer app for E-POD — resulting in <strong>40% increase</strong> in efficiency.</li></ul><div class="ttags"><span class="ttag">SAP ERP</span><span class="ttag">POWER BI</span><span class="ttag">AGILE</span><span class="ttag">E-POD</span><span class="ttag">mPARIVAHAN</span></div></div>
+    <div class="ti"><div class="tt"><div><div class="tco">NEXTLEAP · REMOTE</div><div class="tro">PRODUCT MANAGER FELLOW (TOP PM FELLOW)</div></div><div class="tdt">FEB 2025 — APR 2025</div></div><ul class="tbul"><li>Recognized as Top PM Fellow — intensive fellowship covering roadmaps, PRDs, user research, and agile execution.</li><li>Proposed Flipkart Command Center feature projecting ₹1939 crore annual revenue uplift.</li></ul><div class="ttags"><span class="ttag">PRODUCT MGMT</span><span class="ttag">UX RESEARCH</span><span class="ttag">PRD</span><span class="ttag">FIGMA</span></div></div>
+    <div class="ti"><div class="tt"><div><div class="tco">REGALO KITCHENS PVT. LTD. · DELHI</div><div class="tro">BUSINESS DEVELOPMENT EXECUTIVE</div></div><div class="tdt">APR 2024 — JUL 2024</div></div><ul class="tbul"><li>Closed high-value deals generating <strong>₹35 lakhs</strong> in revenue from 7 client conversions.</li><li>Built Power BI sales dashboard improving conversion efficiency by <strong>35%</strong>.</li></ul><div class="ttags"><span class="ttag">BUSINESS DEV</span><span class="ttag">POWER BI</span><span class="ttag">SALES</span></div></div>
+    <div class="ti"><div class="tt"><div><div class="tco">MOBYINK INNOVATIONS PVT. LTD. · JAIPUR</div><div class="tro">DIGITAL MARKETING INTERN</div></div><div class="tdt">APR 2023 — JUL 2023</div></div><ul class="tbul"><li>Managed Google AdWords campaigns resulting in <strong>20% CTR increase</strong> and 15% ROI improvement.</li><li>Implemented on-page SEO strategies and technical audits to improve organic traffic.</li></ul><div class="ttags"><span class="ttag">SEO</span><span class="ttag">GOOGLE ADS</span><span class="ttag">DIGITAL MARKETING</span></div></div>
+  </div>
+</div>
+
+<!-- VAULT -->
+<div id="vsec">
+  <div class="sw">
+    <div class="sh"><div class="si">03 // CONTENT_VAULT</div><h2>PORTFOLIO <span class="acc">VAULT</span></h2><div class="sdiv"></div></div>
+    <div class="vbar">
+      <div id="vbc"><div style="font-family:'Share Tech Mono',monospace;font-size:.62rem;color:var(--tmut);letter-spacing:.15em">// BROWSE_FOLDERS</div></div>
+      <div id="vab"></div>
+    </div>
+    <div id="vc"><div class="loader"><div class="spin"></div><div class="ltxt">CONNECTING TO DATABASE...</div></div></div>
+  </div>
+</div>
+
+<!-- ACHIEVEMENTS -->
+<div class="sw" id="ach">
+  <div class="sh"><div class="si">04 // RECOGNITION_LOG</div><h2>ACHIEVE<span class="acc">MENTS</span></h2><div class="sdiv"></div></div>
+  <div class="achgrid">
+    <div class="achcard"><div class="aico">🥇</div><div class="atit">NATIONAL ARTICLE WRITING — 1ST PLACE</div><div class="adesc">First position on Unstop platform competing against 1000+ participants from across India.</div></div>
+    <div class="achcard"><div class="aico">🏆</div><div class="atit">SAMVAD NATIONAL FINALIST</div><div class="adesc">National Finalist in article writing competition by We School, out of 150+ B-schools.</div></div>
+    <div class="achcard"><div class="aico">⭐</div><div class="atit">TOP PM FELLOW — NEXTLEAP</div><div class="adesc">Recognized as Top PM Fellow at NextLeap's Product Manager Fellowship cohort.</div></div>
+    <div class="achcard"><div class="aico">📊</div><div class="atit">55% OPS EFFICIENCY — STAR CEMENT</div><div class="adesc">Led digital logistics transformation integrating SAP ERP and plant automation at scale.</div></div>
+    <div class="achcard"><div class="aico">👥</div><div class="atit">TOP-PERFORMING CLUB — HRUDBHAV</div><div class="adesc">Managed 10-member team; recognized as top-performing club at MDI Murshidabad.</div></div>
+    <div class="achcard"><div class="aico">💡</div><div class="atit">FLIPKART ₹1939 CR REVENUE CASE</div><div class="adesc">Proposed Flipkart Command Center through user research and UI/UX design.</div></div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div id="csec"><div class="sw"><div class="ci">
+  <div class="si" style="justify-content:center">05 // CONTACT_MODULE</div>
+  <h2 style="margin:.5rem 0 1rem">LET'S <span class="acc">CONNECT</span></h2>
+  <p>Open to roles in product management, supply chain strategy, and digital transformation.</p>
+  <div class="clinks">
+    <a href="mailto:singhvaibhav1204@gmail.com" class="clink">✉ singhvaibhav1204@gmail.com</a>
+    <a href="https://www.linkedin.com/in/vaibhavsingh0" target="_blank" class="clink">🔗 LINKEDIN PROFILE</a>
+    <a href="tel:+917071112935" class="clink">📞 +91 70711 12935</a>
+  </div>
+</div></div></div>
+
+<footer>© 2025 VAIBHAV SINGH · PORTFOLIO_OS v3.0 · POWERED BY SUPABASE · ALL RIGHTS RESERVED</footer>
+<div id="toast"></div>
+
+<!-- PASSWORD MODAL -->
+<div class="overlay" id="m-pw">
+  <div class="modal orange">
+    <button class="mclose" onclick="VS.closeModal('m-pw')">✕</button>
+    <h3>// ADMIN_ACCESS</h3>
+    <div class="fg">
+      <label class="fl">ENTER PASSWORD</label>
+      <input type="password" class="fi orange" id="pw-inp" placeholder="••••••••••••••">
+      <div class="pwerr" id="pw-err">⚠ ACCESS DENIED — INVALID CREDENTIALS</div>
+    </div>
+    <div class="mbtns">
+      <button class="btng" onclick="VS.closeModal('m-pw')">CANCEL</button>
+      <button class="btnc" style="border-color:var(--orange);color:var(--orange)" onclick="VS.checkPw()">AUTHENTICATE</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOLDER MODAL -->
+<div class="overlay" id="m-folder">
+  <div class="modal">
+    <button class="mclose" onclick="VS.closeModal('m-folder')">✕</button>
+    <h3>// CREATE_FOLDER</h3>
+    <div class="fg"><label class="fl">FOLDER_NAME</label><input type="text" class="fi" id="folder-name" placeholder="e.g. Product Case Studies"></div>
+    <div class="fg"><label class="fl">SELECT_ICON</label><div class="epick" id="epick"></div></div>
+    <div class="mbtns">
+      <button class="btng" onclick="VS.closeModal('m-folder')">CANCEL</button>
+      <button class="btnc" id="btn-create-folder" onclick="VS.createFolder()">CREATE</button>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD MODAL -->
+<div class="overlay" id="m-upload">
+  <div class="modal">
+    <button class="mclose" onclick="VS.closeModal('m-upload')">✕</button>
+    <h3>// UPLOAD_FILE</h3>
+    <div class="fg"><label class="fl">FILE_NAME</label><input type="text" class="fi" id="upload-name" placeholder="e.g. Q3 Strategy Deck"></div>
+    <div class="fg">
+      <label class="fl">SELECT_FILE</label>
+      <div class="upzone"><input type="file" id="file-inp" accept=".pdf,.ppt,.pptx,.png,.jpg,.jpeg,.gif,.webp,.doc,.docx"><div class="upico">📂</div><div class="uptxt">CLICK TO BROWSE OR DRAG & DROP</div><div class="uptyp">PDF · PPT · PPTX · DOC · IMAGES</div></div>
+      <div class="fsel" id="file-sel"></div>
+    </div>
+    <div class="fg">
+      <label class="fl">THUMBNAIL (OPTIONAL)</label>
+      <div class="thumbzone"><input type="file" id="thumb-inp" accept=".png,.jpg,.jpeg,.webp,.gif">
+        <div id="thumb-ph" style="display:flex;flex-direction:column;align-items:center;gap:.4rem"><div style="font-size:1.4rem">🖼️</div><div class="uptxt" style="font-size:.58rem">CLICK TO ADD THUMBNAIL</div></div>
+        <img id="thumb-prev" style="display:none" alt="thumb">
+      </div>
+    </div>
+    <div class="progwrap" id="prog-wrap"><div class="progbar" id="prog-bar"></div></div>
+    <div class="progtxt" id="prog-txt"></div>
+    <div class="mbtns">
+      <button class="btng" onclick="VS.closeModal('m-upload')">CANCEL</button>
+      <button class="btnc" id="btn-upload" onclick="VS.uploadFile()">UPLOAD</button>
+    </div>
+  </div>
+</div>
+
+<!-- VIEWER -->
+<div class="viewer" id="viewer">
+  <div class="vhead">
+    <div class="vtitle" id="vtitle">—</div>
+    <div class="vacts">
+      <a id="vdl" class="btng" style="font-size:.62rem;padding:.5rem 1rem" target="_blank">⬇ DOWNLOAD</a>
+      <button class="vclose" onclick="VS.closeViewer()">✕ CLOSE</button>
+    </div>
+  </div>
+  <div class="vbody" id="vbody"></div>
+</div>
+
+<!-- Load Supabase FIRST, then our app -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script>
+var VS = (function() {
+
+  // ── CONFIG ──────────────────────────────────────────
+  var URL  = 'https://woffmaqzufwinsbbtzzf.supabase.co';
+  var KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndvZmZtYXF6dWZ3aW5zYmJ0enpmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM4MTc1MzAsImV4cCI6MjA4OTM5MzUzMH0.edVTPUOXPf7Iaagi5QtuzuR_lJ-en-W5K_6yqdyNs7w';
+  var BKT  = 'portfolio-files';
+  var HASH = 'SXNodUFhc2h1MTIwNEA='; // btoa('IshuAashu1204@')
+
+  // ── STATE ────────────────────────────────────────────
+  var db         = null;
+  var isAdmin    = false;
+  var curFolder  = null;
+  var curUploadF = null;
+  var selEmoji   = '📁';
+  var EMOJIS     = ['📁','🧩','⚙️','📊','📝','📑','🏅','🎯','💡','🚀','📈','🔬','🌐','💼','🎨','📐','🔐','🗃️'];
+
+  // ── TOAST ────────────────────────────────────────────
+  var _tt;
+  function toast(msg, type) {
+    var t = document.getElementById('toast');
+    t.textContent = (type==='ok'?'▶ ':type==='warn'?'⚡ ':'⚠ ') + msg;
+    t.className = 'show ' + (type||'ok');
+    clearTimeout(_tt);
+    _tt = setTimeout(function(){ t.className = ''; }, 4000);
+  }
+
+  // ── MODAL ────────────────────────────────────────────
+  function openModal(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.add('show');
+  }
+  function closeModal(id) {
+    var el = document.getElementById(id);
+    if (el) el.classList.remove('show');
+  }
+
+  // ── ADMIN UI ─────────────────────────────────────────
+  function syncAdminUI() {
+    var badge   = document.getElementById('adminBadge');
+    var loginBtn= document.getElementById('adminLoginBtn');
+    if (badge)    badge.className    = isAdmin ? 'on' : '';
+    if (loginBtn) loginBtn.style.display = isAdmin ? 'none' : 'inline-flex';
+  }
+
+  function showPwModal() {
+    if (isAdmin) { logout(); return; }
+    document.getElementById('pw-inp').value = '';
+    document.getElementById('pw-err').style.display = 'none';
+    openModal('m-pw');
+    setTimeout(function(){ document.getElementById('pw-inp').focus(); }, 300);
+  }
+
+  function checkPw() {
+    var val = document.getElementById('pw-inp').value;
+    if (!val) return;
+    if (btoa(val) === HASH) {
+      isAdmin = true;
+      sessionStorage.setItem('vs_admin','1');
+      closeModal('m-pw');
+      syncAdminUI();
+      renderVault();
+      toast('ADMIN ACCESS GRANTED', 'ok');
+    } else {
+      document.getElementById('pw-err').style.display = 'block';
+      var m = document.querySelector('#m-pw .modal');
+      m.classList.add('shake');
+      setTimeout(function(){ m.classList.remove('shake'); }, 400);
+      document.getElementById('pw-inp').value = '';
+      document.getElementById('pw-inp').focus();
+    }
+  }
+
+  function logout() {
+    isAdmin = false;
+    sessionStorage.removeItem('vs_admin');
+    syncAdminUI();
+    renderVault();
+    toast('ADMIN SESSION ENDED', 'warn');
+  }
+
+  // ── HELPERS ──────────────────────────────────────────
+  function h(s) {
+    return String(s||'')
+      .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function emo(t) {
+    var m = {pdf:'📑',ppt:'📊',pptx:'📊',doc:'📝',docx:'📝',png:'🖼️',jpg:'🖼️',jpeg:'🖼️',gif:'🖼️',webp:'🖼️'};
+    return m[t] || '📄';
+  }
+
+  // ── RENDER ───────────────────────────────────────────
+  async function renderVault() {
+    var bcEl = document.getElementById('vbc');
+    var abEl = document.getElementById('vab');
+    var vcEl = document.getElementById('vc');
+
+    if (curFolder) {
+      // ── INSIDE FOLDER ──
+      vcEl.innerHTML = '<div class="loader"><div class="spin"></div><div class="ltxt">LOADING FILES...</div></div>';
+
+      try {
+        var fRes = await db.from('folders').select('*').eq('id', curFolder).single();
+        if (fRes.error) throw fRes.error;
+        var folder = fRes.data;
+
+        bcEl.innerHTML = '<div class="bc"><span class="bcl" id="backBtn">// VAULT</span><span class="bcs"> / </span><span class="bcc">'+ h(folder.icon||'📁') +' '+ h(folder.name) +'</span></div>';
+        document.getElementById('backBtn').onclick = function(){ curFolder=null; renderVault(); };
+
+        abEl.innerHTML = isAdmin
+          ? '<button class="btnc" style="font-size:.62rem;padding:.6rem 1.2rem" onclick="VS.openUploadModal(\''+ folder.id +'\')">+ UPLOAD FILE</button>'
+          : '';
+
+        var fiRes = await db.from('files').select('*').eq('folder_id', curFolder);
+        if (fiRes.error) throw fiRes.error;
+        var files = fiRes.data || [];
+
+        if (!files.length) {
+          vcEl.innerHTML = '<div class="egrid">[ NO FILES YET ]</div>';
+        } else {
+          var html = '<div class="filegrid">';
+          files.forEach(function(f){ html += fileCard(f); });
+          html += '</div>';
+          vcEl.innerHTML = html;
+        }
+
+      } catch(e) {
+        vcEl.innerHTML = '<div class="egrid">ERROR: ' + h(e.message) + '</div>';
+        toast('ERROR: ' + e.message, 'err');
+      }
+
+    } else {
+      // ── FOLDERS LIST ──
+      vcEl.innerHTML = '<div class="loader"><div class="spin"></div><div class="ltxt">SYNCING WITH CLOUD...</div></div>';
+      bcEl.innerHTML = '<div style="font-family:\'Share Tech Mono\',monospace;font-size:.62rem;color:var(--tmut);letter-spacing:.15em">// BROWSE_FOLDERS</div>';
+      abEl.innerHTML = isAdmin
+        ? '<button class="btnc" style="font-size:.62rem;padding:.6rem 1.2rem" onclick="VS.openFolderModal()">+ NEW FOLDER</button>'
+        : '';
+
+      try {
+        var res = await db.from('folders').select('*');
+        if (res.error) throw res.error;
+        var folders = res.data || [];
+
+        var html = '<div class="fgrid">';
+        folders.forEach(function(f){ html += folderCard(f); });
+        if (isAdmin) html += '<div class="addcard" onclick="VS.openFolderModal()"><div class="addico">⊕</div><div class="addlbl">NEW FOLDER</div></div>';
+        html += '</div>';
+        vcEl.innerHTML = html;
+
+      } catch(e) {
+        vcEl.innerHTML = '<div class="egrid">ERROR LOADING FOLDERS: ' + h(e.message) + '</div>';
+        toast('ERROR: ' + e.message, 'err');
+      }
+    }
+  }
+
+  function folderCard(f) {
+    var id   = h(f.id);
+    var name = h(f.name || 'Folder');
+    var icon = h(f.icon || '📁');
+    var btns = isAdmin
+      ? '<div class="fbtns" onclick="event.stopPropagation()">'
+        + '<button class="ibtn" onclick="event.stopPropagation();VS.renameFolder(\''+ id +'\',\''+ name +'\')">✏</button>'
+        + '<button class="ibtn del" onclick="event.stopPropagation();VS.deleteFolder(\''+ id +'\')">✕</button>'
+        + '</div>'
+      : '';
+    return '<div class="fcard" onclick="VS.openFolder(\''+ id +'\')"><div class="ftop"><div class="fico">'+ icon +'</div>'+ btns +'</div><div class="fnm">'+ name +'</div><div class="fcnt">CLICK TO OPEN</div><div class="fprev"><div class="fempty">[ CLOUD SYNCED ]</div></div></div>';
+  }
+
+  function fileCard(f) {
+    var id    = h(f.id);
+    var name  = h(f.name || 'File');
+    var url   = h(f.file_url || '');
+    var thumb = h(f.thumb_url || '');
+    var type  = f.type || '';
+    var ext   = type.toUpperCase() || 'FILE';
+    var thImg = thumb ? '<img src="'+ thumb +'" alt="">' : '';
+    var thEmo = thumb ? '' : '<span>'+ emo(type) +'</span>';
+    var delBtn= isAdmin
+      ? '<button class="btnsm del" onclick="VS.deleteFile(\''+ id +'\',\''+ url +'\',\''+ thumb +'\')">✕ DEL</button>'
+      : '';
+    return '<div class="filecard">'
+      + '<div class="fthumb" onclick="VS.openViewer(\''+ url +'\',\''+ name +'\',\''+ type +'\')">'+thImg+thEmo+'<div class="fbadge">'+ ext +'</div></div>'
+      + '<div class="finfo"><div class="fname" title="'+ name +'">'+ name +'</div><div class="fdate">CLOUD STORED</div></div>'
+      + '<div class="factions"><button class="btnsm" onclick="VS.openViewer(\''+ url +'\',\''+ name +'\',\''+ type +'\')">👁 VIEW</button><a class="btnsm" href="'+ url +'" target="_blank">⬇ SAVE</a>'+ delBtn +'</div>'
+      + '</div>';
+  }
+
+  // ── FOLDER CRUD ──────────────────────────────────────
+  function openFolder(id) {
+    curFolder = id;
+    renderVault();
+    document.getElementById('vsec').scrollIntoView({behavior:'smooth'});
+  }
+
+  function openFolderModal() {
+    selEmoji = '📁';
+    document.getElementById('folder-name').value = '';
+    var picker = document.getElementById('epick');
+    picker.innerHTML = EMOJIS.map(function(e){
+      return '<div class="eopt'+(e===selEmoji?' sel':'')+'" onclick="VS.pickEmoji(\''+ e +'\',this)">'+ e +'</div>';
+    }).join('');
+    openModal('m-folder');
+  }
+
+  function pickEmoji(e, el) {
+    selEmoji = e;
+    document.querySelectorAll('.eopt').forEach(function(x){ x.classList.remove('sel'); });
+    el.classList.add('sel');
+  }
+
+  async function createFolder() {
+    var name = (document.getElementById('folder-name').value || '').trim();
+    if (!name) { toast('ENTER A FOLDER NAME', 'err'); return; }
+    var btn = document.getElementById('btn-create-folder');
+    btn.textContent = 'CREATING...'; btn.disabled = true;
+    try {
+      var res = await db.from('folders').insert({ name: name, icon: selEmoji });
+      if (res.error) throw res.error;
+      closeModal('m-folder');
+      renderVault();
+      toast('FOLDER CREATED', 'ok');
+    } catch(e) { toast('ERROR: '+ e.message, 'err'); }
+    finally { btn.textContent = 'CREATE'; btn.disabled = false; }
+  }
+
+  async function renameFolder(id, oldName) {
+    var n = prompt('RENAME FOLDER:', oldName);
+    if (!n || !n.trim()) return;
+    try {
+      var res = await db.from('folders').update({ name: n.trim() }).eq('id', id);
+      if (res.error) throw res.error;
+      renderVault(); toast('FOLDER RENAMED', 'ok');
+    } catch(e) { toast('ERROR: '+ e.message, 'err'); }
+  }
+
+  async function deleteFolder(id) {
+    if (!confirm('DELETE THIS FOLDER AND ALL ITS FILES?')) return;
+    try {
+      var fi = await db.from('files').select('file_url,thumb_url').eq('folder_id', id);
+      if (fi.data) {
+        for (var i=0; i<fi.data.length; i++) {
+          var f = fi.data[i];
+          if (f.file_url) { var p=f.file_url.split('/'+BKT+'/')[1]; if(p) await db.storage.from(BKT).remove([p]); }
+          if (f.thumb_url){ var q=f.thumb_url.split('/'+BKT+'/')[1]; if(q) await db.storage.from(BKT).remove([q]); }
+        }
+      }
+      await db.from('files').delete().eq('folder_id', id);
+      var res = await db.from('folders').delete().eq('id', id);
+      if (res.error) throw res.error;
+      renderVault(); toast('FOLDER DELETED', 'ok');
+    } catch(e) { toast('ERROR: '+ e.message, 'err'); }
+  }
+
+  // ── FILE CRUD ────────────────────────────────────────
+  function openUploadModal(folderId) {
+    curUploadF = folderId;
+    document.getElementById('upload-name').value = '';
+    document.getElementById('file-sel').textContent = '';
+    document.getElementById('file-inp').value = '';
+    document.getElementById('thumb-inp').value = '';
+    document.getElementById('thumb-prev').style.display = 'none';
+    document.getElementById('thumb-ph').style.display = 'flex';
+    document.getElementById('prog-wrap').style.display = 'none';
+    document.getElementById('prog-txt').style.display = 'none';
+    document.getElementById('prog-bar').style.width = '0%';
+    openModal('m-upload');
+  }
+
+  async function uploadFile() {
+    var name = (document.getElementById('upload-name').value || '').trim();
+    var fi   = document.getElementById('file-inp');
+    if (!name)          { toast('ENTER FILE NAME', 'err'); return; }
+    if (!fi.files[0])   { toast('SELECT A FILE', 'err'); return; }
+
+    var btn = document.getElementById('btn-upload');
+    var pw  = document.getElementById('prog-wrap');
+    var pb  = document.getElementById('prog-bar');
+    var pt  = document.getElementById('prog-txt');
+    btn.textContent = 'UPLOADING...'; btn.disabled = true;
+    pw.style.display = 'block'; pt.style.display = 'block';
+
+    try {
+      var file = fi.files[0];
+      var ext  = file.name.split('.').pop().toLowerCase();
+      var path = 'files/' + Date.now() + '_' + file.name.replace(/\s+/g,'_');
+
+      pb.style.width = '25%'; pt.textContent = '> UPLOADING FILE...';
+      var up = await db.storage.from(BKT).upload(path, file, {cacheControl:'3600', upsert:false});
+      if (up.error) throw up.error;
+
+      pb.style.width = '55%';
+      var pub = db.storage.from(BKT).getPublicUrl(path);
+      var fileUrl = pub.data.publicUrl;
+
+      var thumbUrl = null;
+      var ti = document.getElementById('thumb-inp');
+      if (ti && ti.files[0]) {
+        pt.textContent = '> UPLOADING THUMBNAIL...';
+        var tp = 'thumbs/' + Date.now() + '_t.' + ti.files[0].name.split('.').pop();
+        var tu = await db.storage.from(BKT).upload(tp, ti.files[0], {cacheControl:'3600', upsert:false});
+        if (!tu.error) { thumbUrl = db.storage.from(BKT).getPublicUrl(tp).data.publicUrl; }
+      }
+
+      pb.style.width = '80%'; pt.textContent = '> SAVING TO DATABASE...';
+      var ins = await db.from('files').insert({ folder_id: curUploadF, name: name, type: ext, file_url: fileUrl, thumb_url: thumbUrl });
+      if (ins.error) throw ins.error;
+
+      pb.style.width = '100%'; pt.textContent = '> UPLOAD COMPLETE!';
+      setTimeout(function(){ closeModal('m-upload'); renderVault(); toast('FILE UPLOADED — VISIBLE TO ALL VISITORS', 'ok'); }, 700);
+
+    } catch(e) {
+      pt.textContent = '> ERROR: ' + e.message;
+      toast('UPLOAD ERROR: ' + e.message, 'err');
+    } finally {
+      btn.textContent = 'UPLOAD'; btn.disabled = false;
+    }
+  }
+
+  async function deleteFile(id, fileUrl, thumbUrl) {
+    if (!confirm('PERMANENTLY DELETE THIS FILE?')) return;
+    try {
+      if (fileUrl)  { var p=fileUrl.split('/'+BKT+'/')[1];  if(p) await db.storage.from(BKT).remove([p]); }
+      if (thumbUrl) { var q=thumbUrl.split('/'+BKT+'/')[1]; if(q) await db.storage.from(BKT).remove([q]); }
+      var res = await db.from('files').delete().eq('id', id);
+      if (res.error) throw res.error;
+      renderVault(); toast('FILE DELETED', 'ok');
+    } catch(e) { toast('ERROR: ' + e.message, 'err'); }
+  }
+
+  // ── VIEWER ───────────────────────────────────────────
+  function openViewer(url, name, type) {
+    document.getElementById('vtitle').textContent = '// ' + name.toUpperCase();
+    document.getElementById('vdl').href = url;
+    var isImg = ['png','jpg','jpeg','gif','webp'].indexOf(type) >= 0;
+    document.getElementById('vbody').innerHTML = isImg
+      ? '<img src="'+ url +'" alt="'+ name +'">'
+      : '<iframe src="'+ url +'" title="'+ name +'"></iframe>';
+    document.getElementById('viewer').classList.add('show');
+  }
+  function closeViewer() {
+    document.getElementById('viewer').classList.remove('show');
+    document.getElementById('vbody').innerHTML = '';
+  }
+
+  // ── BOOT ─────────────────────────────────────────────
+  function boot() {
+    // Restore admin session
+    if (sessionStorage.getItem('vs_admin') === '1') isAdmin = true;
+    syncAdminUI();
+
+    // Cursor
+    var dot  = document.getElementById('cdot');
+    var ring = document.getElementById('cring');
+    document.addEventListener('mousemove', function(e){
+      dot.style.left  = e.clientX + 'px'; dot.style.top  = e.clientY + 'px';
+      ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px';
+    });
+
+    // Password enter key
+    document.getElementById('pw-inp').addEventListener('keydown', function(e){
+      if (e.key === 'Enter') checkPw();
+    });
+
+    // File input preview
+    document.getElementById('file-inp').addEventListener('change', function(){
+      if (this.files[0]) {
+        document.getElementById('file-sel').textContent = '> ' + this.files[0].name;
+        var n = document.getElementById('upload-name');
+        if (!n.value) n.value = this.files[0].name.replace(/\.[^/.]+$/, '');
+      }
+    });
+    document.getElementById('thumb-inp').addEventListener('change', function(){
+      if (this.files[0]) {
+        var r = new FileReader();
+        r.onload = function(e){
+          document.getElementById('thumb-prev').src = e.target.result;
+          document.getElementById('thumb-prev').style.display = 'block';
+          document.getElementById('thumb-ph').style.display = 'none';
+        };
+        r.readAsDataURL(this.files[0]);
+      }
+    });
+
+    // Close overlay on backdrop click
+    document.querySelectorAll('.overlay').forEach(function(o){
+      o.addEventListener('click', function(e){ if (e.target===o) o.classList.remove('show'); });
+    });
+
+    // ESC key
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.overlay.show').forEach(function(o){ o.classList.remove('show'); });
+        closeViewer();
+      }
+    });
+
+    // Init Supabase
+    if (window.supabase && window.supabase.createClient) {
+      db = window.supabase.createClient(URL, KEY);
+      renderVault();
+    } else {
+      // Poll until supabase loads (CDN sometimes slow)
+      var tries = 0;
+      var poll = setInterval(function(){
+        tries++;
+        if (window.supabase && window.supabase.createClient) {
+          clearInterval(poll);
+          db = window.supabase.createClient(URL, KEY);
+          renderVault();
+        } else if (tries > 30) {
+          clearInterval(poll);
+          document.getElementById('vc').innerHTML = '<div class="egrid">FAILED TO LOAD DATABASE. PLEASE REFRESH THE PAGE.</div>';
+        }
+      }, 200);
+    }
+  }
+
+  // Start when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
+  }
+
+  // Public API
+  return {
+    showPwModal:   showPwModal,
+    checkPw:       checkPw,
+    logout:        logout,
+    openModal:     openModal,
+    closeModal:    closeModal,
+    openFolder:    openFolder,
+    openFolderModal: openFolderModal,
+    pickEmoji:     pickEmoji,
+    createFolder:  createFolder,
+    renameFolder:  renameFolder,
+    deleteFolder:  deleteFolder,
+    openUploadModal: openUploadModal,
+    uploadFile:    uploadFile,
+    deleteFile:    deleteFile,
+    openViewer:    openViewer,
+    closeViewer:   closeViewer,
+  };
+
+})();
+</script>
+</body>
+</html>
